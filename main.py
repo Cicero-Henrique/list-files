@@ -1,5 +1,6 @@
 import glob
 import os.path
+import os
 
 EXTENSIONS = [
     'webm',
@@ -17,6 +18,14 @@ def goDeep(files):
         if isDir(file):
             search_in_folder()
 
+def isValidUrl(url):
+    for letter in url:
+        if letter == '[':
+            url = url.replace(letter, '(')
+        if letter == ']':
+            url = url.replace(letter, ')')
+    return url
+
 def isDir(path):
     return os.path.isdir(path)
 
@@ -28,21 +37,16 @@ def search_videos(url):
             names.append('- ' + str(x.replace(url+'\\', '').replace('.' + extension, '')))
     return names
 
-def search_in_folder(url, videos):
+def search_in_folder(old_url, videos):
+    url = isValidUrl(old_url)
+    if url != old_url:
+        os.rename(old_url, url)
     videos = videos + search_videos(url)
     all_files = glob.glob(url+ "\*")
     for file in all_files:
-        # print(file)
         if isDir(file):
             videos = videos + search_in_folder(file, [])
     return videos
-
-    # names = []
-    # for extension in EXTENSIONS:
-    #     videos = glob.glob(url + "\*." + extension)
-    #     for x in videos:
-    #         names.append((x.replace(url+'\\', '').replace('.' + extension, '')))
-    # return names
 
 url = ''
 complete_list = search_in_folder(url, [])
