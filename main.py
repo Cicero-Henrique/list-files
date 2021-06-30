@@ -1,16 +1,20 @@
 import glob
 import os
 
-EXTENSIONS = [
-    'webm',
-    'mkv',
-    'flv',
-    'avi',
-    'wmv',
-    'amv',
-    'mp4',
-    'flv'
-]
+def get_extensions():
+    extensions = []
+    f = open('list.txt', 'r')
+    for line in f:
+        extensions.append(line.strip('\n'))
+    f.close()
+    return extensions
+
+def write_in_file(files):
+    f = open('films.txt', 'x')
+    for x in files:
+        f.write(x +'\n')
+        # extensions.append(line.strip('\n'))
+    f.close()
 
 def validateFolderName(original_url):
     url = original_url
@@ -46,7 +50,9 @@ def search_in_folder(old_url, videos, dashes):
             videos = videos + search_in_folder(file, [], dashes)
     return videos
 
+EXTENSIONS = get_extensions()
 url = ''
 complete_list = search_in_folder(url, [], '-')
-for i in complete_list:
-    print(i)
+write_in_file(complete_list)
+# for i in complete_list:
+#     print(i)
