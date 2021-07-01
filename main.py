@@ -13,7 +13,6 @@ def write_in_file(files):
     f = open('films.txt', 'x')
     for x in files:
         f.write(x +'\n')
-        # extensions.append(line.strip('\n'))
     f.close()
 
 def validateFolderName(original_url):
@@ -51,8 +50,6 @@ def search_in_folder(old_url, videos, dashes):
     return videos
 
 EXTENSIONS = get_extensions()
-url = ''
+url = input('Insira o caminho da pasta: ')
 complete_list = search_in_folder(url, [], '-')
 write_in_file(complete_list)
-# for i in complete_list:
-#     print(i)
