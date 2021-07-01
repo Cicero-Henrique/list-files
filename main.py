@@ -3,14 +3,14 @@ import os
 
 def get_extensions():
     extensions = []
-    f = open('list.txt', 'r')
+    f = open('extensions.txt', 'r')
     for line in f:
         extensions.append(line.strip('\n'))
     f.close()
     return extensions
 
 def write_in_file(files):
-    f = open('films.txt', 'x')
+    f = open('files.txt', 'x')
     for x in files:
         f.write(x +'\n')
     f.close()
